@@ -90,6 +90,20 @@ router.post("/login", async (req, res) => {
 
   try {
     const { email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ message: "please fill the data again" });
+    }
+
+    const userLogin = await User.findOne({ email: email });
+
+    console.log(userLogin);
+
+    if (!userLogin) {
+      res.json({ message: "signed in error" });
+    } else {
+      res.json({ message: "signed in successfully" });
+    }
   } catch (error) {}
 });
 
