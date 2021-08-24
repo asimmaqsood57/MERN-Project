@@ -11,6 +11,7 @@ const app = express();
 dotenv.config({ path: "./config.env" });
 
 require("./db/conn");
+const user = require("./models/userSchema");
 //Midlle wares
 
 const middleWare = (req, res, next) => {
