@@ -83,4 +83,14 @@ router.post("/register", async (req, res) => {
   }
 });
 
+// login route
+
+router.post("/login", async (req, res) => {
+  console.log(req.body);
+
+  try {
+    const { email, password } = req.body;
+  } catch (error) {}
+});
+
 module.exports = router;
