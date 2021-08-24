@@ -4,14 +4,30 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+mongoose
+  .connect(
+    "mongodb+srv://asim:asim@cluster0.3jufk.mongodb.net/mernstack?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useCreateIndex: true,
+      useUnifiedTopology: true,
+      useFindAndModify: false,
+    }
+  )
+  .then(() => {
+    console.log("database connection successful");
+  })
+  .catch((err) => {
+    console.log("some thing went wrong", err);
+  });
+
 //Midlle wares
 
-const middleWare = () => {
+const middleWare = (req, res, next) => {
   console.log("My middle ware");
   next();
 };
 
-middleWare();
 app.get("/", (req, res) => {
   res.send("Hello from the server");
 });
