@@ -2,25 +2,15 @@ const express = require("express");
 
 const mongoose = require("mongoose");
 
+const dotenv = require("dotenv");
+
+const PORT = process.env.PORT;
+
 const app = express();
 
-mongoose
-  .connect(
-    "mongodb+srv://asim:asim@cluster0.3jufk.mongodb.net/mernstack?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-    }
-  )
-  .then(() => {
-    console.log("database connection successful");
-  })
-  .catch((err) => {
-    console.log("some thing went wrong", err);
-  });
+dotenv.config({ path: "./config.env" });
 
+require("./db/conn");
 //Midlle wares
 
 const middleWare = (req, res, next) => {
@@ -44,6 +34,6 @@ app.get("/signup", (req, res) => {
   res.send("Hello signup from the server");
 });
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("Server is running at port 3000");
 });
