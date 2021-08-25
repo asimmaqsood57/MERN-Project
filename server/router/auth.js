@@ -61,21 +61,23 @@ router.post("/register", async (req, res) => {
 
     if (userExist) {
       return res.status(420).json({ error: "User already exits" });
-    }
+    } else if (password != cpassword) {
+      return res.status(420).json({ error: "password don't match" });
+    } else {
+      const user = new User({
+        name: name,
+        email: email,
+        phone: phone,
+        work: work,
+        password: password,
+        cpassword: password,
+      });
 
-    const user = new User({
-      name: name,
-      email: email,
-      phone: phone,
-      work: work,
-      password: password,
-      cpassword: password,
-    });
+      const userRegister = await user.save();
 
-    const userRegister = await user.save();
-
-    if (userRegister) {
-      res.status(201).send("data is inserted");
+      if (userRegister) {
+        res.status(201).send("data is inserted");
+      }
     }
   } catch (error) {
     res.status(500).send("there is and error");
