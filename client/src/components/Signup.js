@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function Home() {
+function Signup() {
   return (
     <div>
-      <p>Welcome</p>
-      <h1>We are the MERN Developers</h1>
+      <h1>signup</h1>
     </div>
   );
 }
+
+export default Signup;

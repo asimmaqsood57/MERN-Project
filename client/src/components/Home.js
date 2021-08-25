@@ -1,10 +1,11 @@
 import React from "react";
 
-export default function Home() {
+const Home = () => {
   return (
     <div>
-      <p>Welcome</p>
-      <h1>We are the MERN Developers</h1>
+      <h1>home</h1>
     </div>
   );
-}
+};
+
+export default Home;
