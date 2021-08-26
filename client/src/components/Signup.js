@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
+
+import { useHistory } from "react-router-dom";
 function Signup() {
+  const history = useHistory();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -19,12 +22,45 @@ function Signup() {
 
     setUser({ ...user, [name]: value });
   };
+
+  const postData = async (e) => {
+    e.preventDefault();
+
+    const { name, email, phone, work, password, cpassword } = user;
+
+    const res = await fetch("/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone,
+        work,
+        password,
+        cpassword,
+      }),
+    });
+
+    const resp = await res.json();
+
+    if (resp.status === 422 || !resp) {
+      window.alert("Invalid Registration");
+      console.log("Invalid Registration");
+    } else {
+      window.alert("Registration Successful");
+      console.log("registeration successful");
+
+      history.push("/");
+    }
+  };
   return (
     <div>
       <h1 className="text-center mt-4">Sign Up</h1>
 
       <div className="container">
-        <form>
+        <form method="POST">
           <div class="form-group">
             <label for="exampleInputPassword1">Your Name</label>
             <input
@@ -104,7 +140,11 @@ function Signup() {
           </div>
 
           <div className="text-center">
-            <button type="submit" class="btn btn-primary  m-4">
+            <button
+              type="submit"
+              onClick={postData}
+              class="btn btn-primary  m-4"
+            >
               Register
             </button>
           </div>
