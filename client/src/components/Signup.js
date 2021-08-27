@@ -28,7 +28,7 @@ function Signup() {
 
     const { name, email, phone, work, password, cpassword } = user;
 
-    const res = await fetch("/register", {
+    const resp = await fetch("/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -43,9 +43,10 @@ function Signup() {
       }),
     });
 
-    const resp = await res.json();
+    const data = await resp.json();
 
-    if (resp.status === 422 || !resp) {
+    console.log(data);
+    if (data.status === 422 || !data) {
       window.alert("Invalid Registration");
       console.log("Invalid Registration");
     } else {
